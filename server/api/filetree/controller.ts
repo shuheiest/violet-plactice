@@ -1,4 +1,4 @@
-import { createFiletree, getFiletree } from '$/service/filetree'
+import { createFiletree, getFiletree, updateFiletree } from '$/service/filetree'
 import { defineController } from './$relay'
 
 const print = (text: string) => console.log(text)
@@ -12,5 +12,9 @@ export default defineController({ getFiletree, print }, ({ getFiletree, print })
   post: async ({ body }) => ({
     status: 201,
     body: await createFiletree(body.path),
+  }),
+  put: async ({ body }) => ({
+    status: 201,
+    body: await updateFiletree(body.id, body),
   }),
 }))

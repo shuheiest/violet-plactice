@@ -13,4 +13,8 @@ export type Methods = {
     reqBody: Pick<Filetree, 'path'>
     resBody: Filetree
   }
+  put: {
+    reqBody: Required<Pick<Filetree, 'id' | 'path'>>
+    resBody: Filetree
+  }
 }

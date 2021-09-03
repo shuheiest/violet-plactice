@@ -11,7 +11,7 @@ export const getFiletree = depend(
 
 export const createFiletree = (path: Filetree['path']) => prisma.filetree.create({ data: { path } })
 
-export const updateFiletree = (id: Filetree['id'], partialTask: Prisma.TaskUpdateInput) =>
-  prisma.filetree.update({ where: { id }, data: partialTask })
+export const updateFiletree = (id: Filetree['id'], partialFiletree: Prisma.FiletreeUpdateInput) =>
+  prisma.filetree.update({ where: { id }, data: partialFiletree })
 
 export const deleteFiletree = (id: Filetree['id']) => prisma.filetree.delete({ where: { id } })
