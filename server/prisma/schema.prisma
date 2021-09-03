@@ -12,3 +12,8 @@ model Task {
   label String
   done  Boolean @default(false)
 }
+
+model Filetree {
+  id Int @id @default(autoincrement())
+  path String
+}
