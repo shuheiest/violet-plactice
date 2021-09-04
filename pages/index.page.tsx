@@ -7,6 +7,7 @@ import { Spacer } from '~/components/atoms/Spacer'
 import { Fetching } from '~/components/organisms/Fetching'
 import { useApi } from '~/hooks'
 import { staticPath } from '~/utils/$path'
+import { FileTreeArea } from './components/Filetree'
 import { UserBanner } from './components/UserBanner'
 
 const Container = styled.div`
@@ -14,6 +15,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
   min-height: 100vh;
   padding: 0 0.5rem;
 `
@@ -124,10 +126,8 @@ const Home = () => {
         <title>frourio-todo-app</title>
         <link rel="icon" href={staticPath.favicon_png} />
       </Head>
-
       <StyledMain>
         <UserBanner />
-
         <Title>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </Title>
@@ -163,6 +163,7 @@ const Home = () => {
           Powered by <Logo src={staticPath.vercel_svg} alt="Vercel Logo" />
         </a>
       </StyledFooter>
+      <FileTreeArea />
     </Container>
   )
 }
