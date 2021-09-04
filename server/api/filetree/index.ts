@@ -14,7 +14,10 @@ export type Methods = {
     resBody: Filetree
   }
   put: {
-    reqBody: Required<Pick<Filetree, 'id' | 'path'>>
+    reqBody: Required<Partial<Filetree>>
     resBody: Filetree
+  }
+  delete: {
+    reqBody: Pick<Filetree, 'id'>
   }
 }
