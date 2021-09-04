@@ -13,7 +13,18 @@ model Task {
   done  Boolean @default(false)
 }
 
-model Filetree {
+model Parentfolder {
   id Int @id @default(autoincrement())
-  path String
+  foldername String
+}
+
+model Childfolder {
+  id Int @id @default(autoincrement())
+  folderid Int
+}
+
+model File {
+  id Int @id @default(autoincrement())
+  filename String
+  folderid Int
 }
