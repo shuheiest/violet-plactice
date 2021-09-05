@@ -1,5 +1,8 @@
-import React from 'react'
+import useAspidaSWR from '@aspida/swr'
+import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react'
 import styled from 'styled-components'
+import { Fetching } from '~/components/organisms/Fetching'
+import { useApi } from '~/hooks'
 
 const FiletreeArea = styled.div`
   position: absolute;
@@ -29,31 +32,60 @@ const AddFolder = styled.div`
   }
 `
 
-const AddFile = styled.div`
-  position: absolute;
-  top: 95%;
-  left: 15%;
-  width: 130px;
-  height: 20px;
-  background-color: #e2e4cf;
-
-  a {
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    text-align: center;
+const Filetree = styled.ul`
+  width: 150px;
+  padding: 0;
+  list-style-type: none;
+  > li {
+    border-bottom: 1px solid #eee;
   }
 `
 
 export const FileTreeArea = () => {
+  const { api, onErr } = useApi()
+  const [foldername, setFoldername] = useState('')
+  const { data: parentfolder, error, mutate } = useAspidaSWR(api.parentfolder)
+  const inputFoldername = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => setFoldername(e.target.value),
+    []
+  )
+  const createFolder = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault()
+      if (!foldername) return
+
+      const res = await api.parentfolder.post({ body: { foldername } }).catch(onErr)
+      if (!res) return
+
+      setFoldername('')
+      mutate()
+    },
+    [foldername]
+  )
+
+  if (!parentfolder) return <Fetching error={error} />
+
   return (
     <FiletreeArea>
+      <Filetree>
+        {parentfolder.map((parentfolder) => (
+          <React.Fragment key={parentfolder.id}>
+            <li>
+              <label>
+                <span>{parentfolder.foldername}</span>
+              </label>
+            </li>
+          </React.Fragment>
+        ))}
+      </Filetree>
+
       <AddFolder>
         <a>フォルダを追加</a>
+        <form style={{ textAlign: 'center' }} onSubmit={createFolder}>
+          <input value={foldername} type="text" onChange={inputFoldername} />
+          <input type="submit" value="ADD" />
+        </form>
       </AddFolder>
-      <AddFile>
-        <a>ファイルを追加</a>
-      </AddFile>
     </FiletreeArea>
   )
 }
