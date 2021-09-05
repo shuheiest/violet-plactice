@@ -3,7 +3,7 @@
 exports[`Home page matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="Container-sc-43yzvd-0 dVSdUP"
+    class="Container-sc-43yzvd-0 jeWtdV"
   >
     <main
       class="StyledMain-sc-43yzvd-1 mMuSq"
@@ -99,6 +99,9 @@ exports[`Home page matches snapshot 1`] = `
         />
       </a>
     </footer>
+    <div
+      class="FiletreeArea-sc-yzyvye-0 dMmdLR"
+    />
   </div>
 </DocumentFragment>
 `;
