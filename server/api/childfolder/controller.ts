@@ -16,7 +16,7 @@ export default defineController({ getChildFolder, print }, ({ getChildFolder, pr
   },
   post: async ({ body }) => ({
     status: 201,
-    body: await createChildFolder(body.folderid),
+    body: await createChildFolder(body.folderid, body.foldername),
   }),
   put: async ({ body }) => ({
     status: 201,

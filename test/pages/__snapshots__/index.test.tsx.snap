@@ -99,9 +99,6 @@ exports[`Home page matches snapshot 1`] = `
         />
       </a>
     </footer>
-    <div
-      class="FiletreeArea-sc-yzyvye-0 dMmdLR"
-    />
   </div>
 </DocumentFragment>
 `;

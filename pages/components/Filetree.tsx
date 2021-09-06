@@ -20,7 +20,7 @@ const AddFolder = styled.div`
   position: absolute;
   top: 90%;
   left: 15%;
-  width: 130px;
+  width: 160px;
   height: 20px;
   background-color: #e2e4cf;
 
@@ -73,6 +73,9 @@ export const FileTreeArea = () => {
             <li>
               <label>
                 <span>{parentfolder.foldername}</span>
+                <div>
+                  <input type="button" value="フォルダを追加" />
+                </div>
               </label>
             </li>
           </React.Fragment>
@@ -80,7 +83,7 @@ export const FileTreeArea = () => {
       </Filetree>
 
       <AddFolder>
-        <a>フォルダを追加</a>
+        <a>ルートフォルダを追加</a>
         <form style={{ textAlign: 'center' }} onSubmit={createFolder}>
           <input value={foldername} type="text" onChange={inputFoldername} />
           <input type="submit" value="ADD" />

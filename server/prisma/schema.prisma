@@ -21,6 +21,7 @@ model Parentfolder {
 model Childfolder {
   id Int @id @default(autoincrement())
   folderid Int
+  foldername String
 }
 
 model File {
