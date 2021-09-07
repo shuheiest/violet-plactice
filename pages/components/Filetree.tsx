@@ -3,6 +3,7 @@ import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react'
 import styled from 'styled-components'
 import { Fetching } from '~/components/organisms/Fetching'
 import { useApi } from '~/hooks'
+import { ChildFileTreeArea } from './ChildFileTree'
 
 const FiletreeArea = styled.div`
   position: absolute;
@@ -49,6 +50,7 @@ export const FileTreeArea = () => {
     (e: ChangeEvent<HTMLInputElement>) => setFoldername(e.target.value),
     []
   )
+
   const createFolder = useCallback(
     async (e: FormEvent) => {
       e.preventDefault()
@@ -73,6 +75,7 @@ export const FileTreeArea = () => {
             <li>
               <label>
                 <span>{parentfolder.foldername}</span>
+                <ChildFileTreeArea parentFolderid={parentfolder.id} />
                 <div>
                   <input type="button" value="フォルダを追加" />
                 </div>

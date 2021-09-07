@@ -10,7 +10,7 @@ export type Methods = {
     resBody: Childfolder[]
   }
   post: {
-    reqBody: Omit<Childfolder, 'id'>
+    reqBody: Required<Omit<Childfolder, 'id'>>
     resBody: Childfolder
   }
   put: {
