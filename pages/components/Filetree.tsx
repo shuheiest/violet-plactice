@@ -55,7 +55,6 @@ export const FileTreeArea = () => {
     async (e: FormEvent) => {
       e.preventDefault()
       if (!foldername) return
-
       const res = await api.parentfolder.post({ body: { foldername } }).catch(onErr)
       if (!res) return
 
@@ -75,10 +74,7 @@ export const FileTreeArea = () => {
             <li>
               <label>
                 <span>{parentfolder.foldername}</span>
-                <ChildFileTreeArea parentFolderid={parentfolder.id} />
-                <div>
-                  <input type="button" value="フォルダを追加" />
-                </div>
+                <ChildFileTreeArea id={parentfolder.id} />
               </label>
             </li>
           </React.Fragment>
