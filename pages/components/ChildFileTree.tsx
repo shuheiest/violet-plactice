@@ -1,11 +1,16 @@
 import useAspidaSWR from '@aspida/swr'
 import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react'
+import styled from 'styled-components'
 import { Fetching } from '~/components/organisms/Fetching'
 import { useApi } from '~/hooks'
 
 type useChildProps = {
   id: number
 }
+
+const ChildtreeArea = styled.div`
+  padding-left: 5%;
+`
 
 export const ChildFileTreeArea: React.FC<useChildProps> = (parentFolder) => {
   const { api, onErr } = useApi()
@@ -30,15 +35,11 @@ export const ChildFileTreeArea: React.FC<useChildProps> = (parentFolder) => {
   )
   if (!childfolder) return <Fetching error={error} />
   return (
-    <div>
+    <ChildtreeArea>
       {childfolder.map((childparentfolder) => (
         <React.Fragment key={childparentfolder.id}>
           {childparentfolder.folderid === parentFolder.id && (
-            <li>
-              <label>
-                <span>∟{childparentfolder.foldername}</span>
-              </label>
-            </li>
+            <div>∟{childparentfolder.foldername}</div>
           )}
         </React.Fragment>
       ))}
@@ -46,6 +47,6 @@ export const ChildFileTreeArea: React.FC<useChildProps> = (parentFolder) => {
         <input value={childfoldername} type="text" onChange={inputChildFoldername} />
         <input type="submit" value="フォルダを追加" />
       </form>
-    </div>
+    </ChildtreeArea>
   )
 }
