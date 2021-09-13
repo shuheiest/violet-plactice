@@ -55,7 +55,7 @@ export const FileTreeArea = () => {
     async (e: FormEvent) => {
       e.preventDefault()
       if (!foldername) return
-      const res = await api.parentfolder.post({ body: { foldername } }).catch(onErr)
+      const res = await api.parentfolder.post({ body: { foldername, rootflg: true } }).catch(onErr)
       if (!res) return
 
       setFoldername('')
@@ -71,7 +71,7 @@ export const FileTreeArea = () => {
       <Filetree>
         {parentfolder.map((parentfolder) => (
           <React.Fragment key={parentfolder.id}>
-            <div>{parentfolder.foldername}</div>
+            {parentfolder.rootflg && <div>{parentfolder.foldername}</div>}
             <ChildFileTreeArea id={parentfolder.id} />
           </React.Fragment>
         ))}

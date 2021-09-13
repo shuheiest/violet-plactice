@@ -16,7 +16,7 @@ export default defineController({ getParentFolder, print }, ({ getParentFolder, 
   },
   post: async ({ body }) => ({
     status: 201,
-    body: await createParentFolder(body.foldername),
+    body: await createParentFolder(body.foldername, body.rootflg),
   }),
   put: async ({ body }) => ({
     status: 201,

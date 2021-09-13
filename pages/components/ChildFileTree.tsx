@@ -15,6 +15,7 @@ const ChildtreeArea = styled.div`
 export const ChildFileTreeArea: React.FC<useChildProps> = (parentFolder) => {
   const { api, onErr } = useApi()
   const [childfoldername, serChildfoldername] = useState('')
+  const [foldername, setFoldername] = useState('')
   const { data: childfolder, error, mutate } = useAspidaSWR(api.childfolder)
   const inputChildFoldername = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => serChildfoldername(e.target.value),
@@ -28,11 +29,22 @@ export const ChildFileTreeArea: React.FC<useChildProps> = (parentFolder) => {
         .post({ body: { foldername: childfoldername, folderid: parentFolder.id } })
         .catch(onErr)
       if (!res) return
-      serChildfoldername('')
+      console.log('check')
+      registerParentFolder()
       mutate()
     },
     [childfoldername]
   )
+  const registerParentFolder = useCallback(async () => {
+    if (!childfoldername) return
+    const res = await api.parentfolder
+      .post({ body: { foldername: childfoldername, rootflg: false } })
+      .catch(onErr)
+    if (!res) return
+    console.log(res)
+    serChildfoldername('')
+    mutate()
+  }, [foldername])
   if (!childfolder) return <Fetching error={error} />
   return (
     <ChildtreeArea>

@@ -9,8 +9,10 @@ export const getParentFolder = depend(
   async ({ prisma }, limit?: number) => (await prisma.parentfolder.findMany()).slice(0, limit)
 )
 
-export const createParentFolder = (foldername: Parentfolder['foldername']) =>
-  prisma.parentfolder.create({ data: { foldername } })
+export const createParentFolder = (
+  foldername: Parentfolder['foldername'],
+  rootflg: Parentfolder['rootflg']
+) => prisma.parentfolder.create({ data: { foldername, rootflg } })
 
 export const updateParentFolder = (
   id: Parentfolder['id'],

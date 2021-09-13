@@ -16,6 +16,7 @@ model Task {
 model Parentfolder {
   id Int @id @default(autoincrement())
   foldername String
+  rootflg Boolean
 }
 
 model Childfolder {
