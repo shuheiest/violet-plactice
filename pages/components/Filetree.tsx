@@ -71,8 +71,12 @@ export const FileTreeArea = () => {
       <Filetree>
         {parentfolder.map((parentfolder) => (
           <React.Fragment key={parentfolder.id}>
-            {parentfolder.rootflg && <div>{parentfolder.foldername}</div>}
-            <ChildFileTreeArea id={parentfolder.id} />
+            {parentfolder.rootflg && (
+              <div>
+                <div>{parentfolder.foldername}</div>
+                <ChildFileTreeArea id={parentfolder.id} />
+              </div>
+            )}
           </React.Fragment>
         ))}
       </Filetree>

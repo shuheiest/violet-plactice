@@ -16,6 +16,7 @@ export const ChildFileTreeArea: React.FC<useChildProps> = (parentFolder) => {
   const { api, onErr } = useApi()
   const [childfoldername, serChildfoldername] = useState('')
   const [foldername, setFoldername] = useState('')
+  const [childfolderNum, setchildfolderNum] = useState(0)
   const { data: childfolder, error, mutate } = useAspidaSWR(api.childfolder)
   const inputChildFoldername = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => serChildfoldername(e.target.value),
@@ -41,7 +42,8 @@ export const ChildFileTreeArea: React.FC<useChildProps> = (parentFolder) => {
       .post({ body: { foldername: childfoldername, rootflg: false } })
       .catch(onErr)
     if (!res) return
-    console.log(res)
+    res.body.id
+    setchildfolderNum(res.body.id)
     serChildfoldername('')
     mutate()
   }, [foldername])
@@ -51,14 +53,23 @@ export const ChildFileTreeArea: React.FC<useChildProps> = (parentFolder) => {
       {childfolder.map((childparentfolder) => (
         <React.Fragment key={childparentfolder.id}>
           {childparentfolder.folderid === parentFolder.id && (
-            <div>∟{childparentfolder.foldername}</div>
+            <div>
+              <div>∟{childparentfolder.foldername}</div>
+              <form style={{ textAlign: 'center' }} onSubmit={createChildFolder}>
+                <input value={childfoldername} type="text" onChange={inputChildFoldername} />
+                <input type="submit" value="フォルダを追加" />
+              </form>
+            </div>
           )}
         </React.Fragment>
       ))}
-      <form style={{ textAlign: 'center' }} onSubmit={createChildFolder}>
+      {/* <form style={{ textAlign: 'center' }} onSubmit={createChildFolder}>
         <input value={childfoldername} type="text" onChange={inputChildFoldername} />
         <input type="submit" value="フォルダを追加" />
-      </form>
+      </form> */}
+      {childfolder.find((e) => e.folderid === childfolderNum) ? (
+        <ChildFileTreeArea id={childfolderNum} />
+      ) : null}
     </ChildtreeArea>
   )
 }
