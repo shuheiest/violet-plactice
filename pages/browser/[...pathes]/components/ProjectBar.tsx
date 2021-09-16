@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import styled from 'styled-components'
-import type { ApiProjectSummary, ProjectId } from '~/server/types'
+import type { BrowserProject, ProjectId } from '~/server/types'
 import { pagesPath } from '~/utils/$path'
 import { alphaLevel, colors, fontSizes } from '~/utils/constants'
 
@@ -11,11 +11,10 @@ const Container = styled.div`
   height: 100%;
   padding: 6px;
   user-select: none;
-  background: ${colors.violet}${alphaLevel[1]};
-  border-right: 1px solid ${colors.violet}${alphaLevel[3]};
+  border-right: 1px solid ${colors.violet}${alphaLevel[2]};
 `
 
-const alpha = (selected: boolean) => (selected ? alphaLevel[6] : alphaLevel[3])
+const alpha = (selected: boolean) => (selected ? alphaLevel[5] : alphaLevel[3])
 
 const IconWrapper = styled.a<{ selected: boolean }>`
   display: inline-block;
@@ -45,13 +44,17 @@ const Icon = styled.div`
   border-radius: 6px;
 `
 
-export const ProjectBar = (props: { summaries: ApiProjectSummary[]; projectId: ProjectId }) => {
+export const ProjectBar = (props: { projects: BrowserProject[]; projectId: ProjectId }) => {
   return (
     <Container>
-      {props.summaries.map((s) => (
-        <Link key={s.id} href={pagesPath.browser._projectId(s.id).$url()} passHref>
-          <IconWrapper title={s.name} selected={s.id === props.projectId}>
-            <Icon>{s.name.slice(0, 2)}</Icon>
+      {props.projects.map((p) => (
+        <Link
+          key={p.id}
+          href={pagesPath.browser._pathes(p.selectedFullPath.split('/')).$url()}
+          passHref
+        >
+          <IconWrapper title={p.name} selected={p.id === props.projectId}>
+            <Icon>{p.name.slice(0, 2)}</Icon>
           </IconWrapper>
         </Link>
       ))}

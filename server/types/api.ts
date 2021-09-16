@@ -1,25 +1,46 @@
-import type { DeskId, ProjectId, WorkId } from './branded'
+import type { DeskId, EditionId, MessageId, ProjectId, RevisionId, WorkId } from './branded'
 
-export type ApiProjectSummary = {
+export type ApiProject = {
   id: ProjectId
   name: string
 }
 
-export type ApiTreeWork = {
+export type ApiWork = {
   id: WorkId
   name: string
   ext?: string
   path: string
 }
 
-export type ApiTreeDesk = {
+export type ApiDesk = {
   id: DeskId
   name: string
-  works: ApiTreeWork[]
+  works: ApiWork[]
 }
 
-export type ApiTreeProject = {
-  id: ProjectId
+export type ApiRevision = {
+  id: RevisionId
+  editions: {
+    id: EditionId
+  }[]
+}
+
+export type ApiMessage = {
+  id: MessageId
+  content: string
+}
+
+export type BrowserApiWholeData = {
+  projects: ApiProject[]
+  desksList: { projectId: ProjectId; desks: ApiDesk[] }[]
+  revisionsList: { projectId: ProjectId; workId: WorkId; revisions: ApiRevision[] }[]
+  messagesList: { projectId: ProjectId; revisionId: RevisionId; messages: ApiMessage[] }[]
+}
+
+export type ProjectApiData = {
+  projectId: ProjectId
   name: string
-  desks: ApiTreeDesk[]
+  desks: ApiDesk[]
+  revisions: ApiRevision[] | undefined
+  messages: ApiMessage[] | undefined
 }
