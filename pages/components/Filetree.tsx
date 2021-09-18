@@ -15,6 +15,10 @@ const FiletreeArea = styled.div`
   background-color: #757377;
   border-color: rgb(150, 180, 190);
   border-width: 1px;
+
+  a:hover {
+    background-color: #e4e4e4;
+  }
 `
 
 const AddFolder = styled.div`
@@ -64,6 +68,11 @@ export const FileTreeArea = () => {
     [foldername]
   )
 
+  const clickFolderName = (id: number) => {
+    console.log('check')
+    console.log(id)
+  }
+
   if (!parentfolder) return <Fetching error={error} />
 
   return (
@@ -73,7 +82,7 @@ export const FileTreeArea = () => {
           <React.Fragment key={parentfolder.id}>
             {parentfolder.rootflg && (
               <div>
-                <div>{parentfolder.foldername}</div>
+                <a onClick={() => clickFolderName(parentfolder.id)}>{parentfolder.foldername}</a>
                 <ChildFileTreeArea id={parentfolder.id} />
               </div>
             )}
